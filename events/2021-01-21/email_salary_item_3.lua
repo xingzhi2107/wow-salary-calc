@@ -1,12 +1,12 @@
 -- 批次：3. 
 -- 邮寄数目：2.
--- 邮寄总额：2342. 
+-- 邮寄总额：2340. 
 
 
 
 
 emailConfig = {}
-emailConfig.subject = "2021-11-21, 灰烬史者NAXX"
+emailConfig.subject = "2021-01-21, 灰烬史者NAXX"
 emailConfig.body = ""
 emailConfig.names = {
     {
@@ -14,7 +14,7 @@ emailConfig.names = {
         salaries = {
             {
                 note = '基本工资(4/4)',
-                value = 2042,
+                value = 2040,
             },
         },
     },

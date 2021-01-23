@@ -5,11 +5,16 @@ const memberAlias = require('./member-alias');
 const CliTable = require('cli-table3');
 const NodeStorage = require('node-persist');
 const js2Lua = require('./lua-utils');
+const { program } = require('commander');
 
 const storage = NodeStorage.create({
   dir: '/Users/zhenguo/.cache/wow-salary/'
 });
 
+program.version('1.0.0');
+program
+  .requiredOption('-d, --date <date>', '活动日期，如2021-01-11');
+program.parse(process.argv);
 
 
 class WCL {
@@ -21,6 +26,7 @@ class WCL {
     this.bossFights = [];
     this.killedBossFights = [];
     this.friendlies = [];
+    this.name2player = {};
   }
 
   async loadSummaryData() {
@@ -41,20 +47,22 @@ class WCL {
 
     const friendlies = data.friendlies.filter(x => x.type !== 'NPC');
     this.friendlies = friendlies.map(player => {
-      const playerFights = player.fights.split('.').filter(x => x);
-      playerFights.forEach(fightId => {
+      const playerFightIds = player.fights.split('.').filter(x => x);
+      playerFightIds.forEach(fightId => {
         const fight = this.id2fight[fightId];
         const players = fight.players = fight.players || [];
         players.push(player.name)
       })
 
-      const playerKilledBosses = playerFights.map(x => this.id2fight[x]).filter(x => x.boss && x.kill).map(x => x.name);
+      const playerKilledBosses = playerFightIds.map(x => this.id2fight[x]).filter(x => x.boss && x.kill).map(x => x.name);
 
       return {
         ...player,
+        playerFightIds,
         playerKilledBosses,
       }
     })
+    this.name2player = _.keyBy(this.friendlies, x => x.name);
   }
 }
 
@@ -145,6 +153,30 @@ class SalaryCalculator {
     console.log(`${invalidPlayerTotalSalaries.length}人罚款不够抵工资！`)
     if (invalidPlayerTotalSalaries.length !== 0) {
       console.log(JSON.stringify(invalidPlayerTotalSalaries, null, 2))
+    }
+
+    const assembleSubsidy = this.getAssembleSubsidy()
+    const invalidAssembleSubsidyMembers = assembleSubsidy.members
+      .map(x => {
+        const wclPlayer = this.wcl.name2player[x] || null;
+        return {
+          name: x,
+          wclPlayer,
+        };
+      })
+      .filter(info => {
+        if (info.wclPlayer === null) {
+          return true;
+        }
+
+        if (info.wclPlayer.playerFightIds.length === 0) {
+          return true;
+        }
+
+        return false;
+      });
+    if (invalidAssembleSubsidyMembers.length) {
+      throw Error(`${invalidAssembleSubsidyMembers.length}人早到补贴异常，未参加过任何战斗！${invalidAssembleSubsidyMembers.map(x => x.name).join(', ')}`)
     }
   }
 
@@ -253,7 +285,8 @@ emailConfig.names = ${js2Lua(items)}
 
   getAssembleSubsidy() {
     const {equipmentIncome, assemblePlayersStr} = this.config;
-    const assemblePlayers = assemblePlayersStr.split(',').map(x => x.trim()).filter(x => x);
+    let assemblePlayers = assemblePlayersStr.split(',').map(x => x.trim()).filter(x => x);
+    assemblePlayers = _.unionBy(assemblePlayers, x => memberAlias[x] || x)
     let value = 0;
     if (assemblePlayers.length !== 0) {
       value = goldInt(Math.min((equipmentIncome * 0.1) / assemblePlayers.length, 100));
@@ -329,7 +362,12 @@ emailConfig.names = ${js2Lua(items)}
 }
 
 
-// test code
-var salaryCalculator = new SalaryCalculator('2021-11-21');
-module.exports = salaryCalculator;
+async function run() {
+  const salaryCalculator = new SalaryCalculator(program.date);
+  await salaryCalculator.loadWclP;
+  salaryCalculator.display();
+  salaryCalculator.saveMemberSalariesToFiles();
+}
+
+run();
 

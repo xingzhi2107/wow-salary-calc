@@ -1,5 +1,5 @@
 {
-  "date": "2021-11-21",
+  "date": "2021-01-21",
   "wclId": "JD7Rfa1Yxy6tHgGr",
   "subject": "灰烬史者NAXX",
   "body": "",
@@ -42,6 +42,11 @@
       "note": "cd费",
       "value": 150,
       "members": ["Sokodayo"]
+    },
+    {
+      "note": "洗天赋",
+      "value": 100,
+      "members": ["抗霸子"]
     }
   ],
   "translations": [
