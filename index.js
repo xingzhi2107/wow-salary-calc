@@ -81,7 +81,7 @@ class SalaryCalculator {
     } = this.getSalaries();
 
     const countInfoTable = new CliTable({
-      head: ['总收入', '总补贴', '总击杀数', '总击杀人次', '单次击杀人次工资'],
+      head: ['总收入', '总补贴', '总击杀数', '总击杀人次', '工资/击杀人次', '装备总收入', '罚款总收入'],
     });
     countInfoTable.push(...[
       [
@@ -90,6 +90,8 @@ class SalaryCalculator {
         countInfo.totalKilledBoss,
         countInfo.totalPlayerKillTimes,
         countInfo.perPlayerKillTimesSalary,
+        countInfo.equipmentIncome,
+        countInfo.totalFineIncome,
       ]
     ]);
     console.log(countInfoTable.toString());
@@ -103,8 +105,8 @@ class SalaryCalculator {
     ].map(subsidy => {
       const itemCount = subsidy.members.length;
       let membersStr = subsidy.members.join(', ');
-      if (membersStr > 100) {
-        membersStr = membersStr.substring(0, 100) + '...'
+      if (membersStr.length > 50) {
+        membersStr = membersStr.substring(0, 50) + '...'
       }
       return [
         subsidy.note,
@@ -120,8 +122,15 @@ class SalaryCalculator {
     const memberSalaryTable = new CliTable({
       head: ['序号', '角色', '总工资', '明细'],
     })
+    const invalidPlayerTotalSalaries = [];
     const memberSalaryRows = memberSalaries.map((x, index) => {
       const total = _.sum(x.salaries.map(x => x.value));
+      if (total < 0) {
+        invalidPlayerTotalSalaries.push({
+          name: x.name,
+          total: total,
+        })
+      }
       const detail = x.salaries.map(x => `${x.note}: ${x.value}, `).join('')
       return [
         index + 1,
@@ -132,6 +141,11 @@ class SalaryCalculator {
     });
     memberSalaryTable.push(...memberSalaryRows);
     console.log(memberSalaryTable.toString());
+
+    console.log(`${invalidPlayerTotalSalaries.length}人罚款不够抵工资！`)
+    if (invalidPlayerTotalSalaries.length !== 0) {
+      console.log(JSON.stringify(invalidPlayerTotalSalaries, null, 2))
+    }
   }
 
   saveMemberSalariesToFiles(batchSize=20) {
@@ -172,10 +186,17 @@ emailConfig.names = ${js2Lua(items)}
 
   getSalaries() {
     const salaryInfo = this.getBasicSalaryInfo();
+    const fineSalary = this.config.fines.map(x => {
+      return {
+        ...x,
+        value: -x.value,
+      }
+    });
     const salaries = [
       this.getAssembleSubsidy(),
       ...this.config.subsidies,
       ...salaryInfo.basicSalaries,
+      ...fineSalary,
     ];
     const countInfo = {...salaryInfo};
     delete countInfo.basicSalaries;
@@ -188,6 +209,30 @@ emailConfig.names = ${js2Lua(items)}
         memberSalaryItems.push({
           note: salaryItem.note,
           value: salaryItem.value,
+        })
+      }
+    }
+
+    for (const trans of this.config.translations) {
+      const {
+        from,
+        to,
+        value,
+        note
+      } = trans;
+      const fromSalaryItems = membersMapping[from] = membersMapping[from] || [];
+      const toSalaryItems = membersMapping[to] = membersMapping[to] || [];
+      const fromBalance = _.sum(fromSalaryItems.map(x => x.value));
+      if (fromBalance < value) {
+        throw Error(`${from} -- ${value} --> ${to} 的转账失败，余额不足！余额：${fromBalance}`);
+      } else {
+        fromSalaryItems.push({
+          note: `转账给"${to}" (${note})`,
+          value: -value,
+        })
+        toSalaryItems.push({
+          note: `来自"${from}"的汇款 (${note})`,
+          value: value,
         })
       }
     }
@@ -207,11 +252,11 @@ emailConfig.names = ${js2Lua(items)}
   }
 
   getAssembleSubsidy() {
-    const {totalIncome, assemblePlayersStr} = this.config;
+    const {equipmentIncome, assemblePlayersStr} = this.config;
     const assemblePlayers = assemblePlayersStr.split(',').map(x => x.trim()).filter(x => x);
     let value = 0;
     if (assemblePlayers.length !== 0) {
-      value = goldInt(Math.min((totalIncome * 0.1) / assemblePlayers.length, 100));
+      value = goldInt(Math.min((equipmentIncome * 0.1) / assemblePlayers.length, 100));
     }
 
     return {
@@ -227,8 +272,20 @@ emailConfig.names = ${js2Lua(items)}
     return _.sum(allSubsidies.map(({value, members}) => value * members.length))
   }
 
+  calcTotalFine() {
+    const {fines} = this.config;
+    return _.sum(fines.map(({value, members}) => {
+      if (value < 0) {
+        throw Error('罚款金额请用正数');
+      }
+      return value * members.length
+    }));
+  }
+
   getBasicSalaryInfo() {
-    const {totalIncome} = this.config;
+    const {equipmentIncome} = this.config;
+    const totalFineIncome = this.calcTotalFine();
+    const totalIncome = equipmentIncome + totalFineIncome;
     const totalSubsidy = this.calcTotalSubsidy();
     const totalBasicSalary = totalIncome - totalSubsidy;
 
@@ -263,6 +320,8 @@ emailConfig.names = ${js2Lua(items)}
       totalBasicSalary,
       totalKilledBoss,
       totalPlayerKillTimes,
+      equipmentIncome,
+      totalFineIncome,
       perPlayerKillTimesSalary: Number.parseFloat(perPlayerKillTimesSalary.toFixed(2)),
       basicSalaries,
     }

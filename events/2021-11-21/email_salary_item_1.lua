@@ -1,6 +1,6 @@
 -- 批次：1. 
 -- 邮寄数目：20.
--- 邮寄总额：50707. 
+-- 邮寄总额：42790. 
 
 
 
@@ -10,162 +10,45 @@ emailConfig.subject = "2021-11-21, 灰烬史者NAXX"
 emailConfig.body = ""
 emailConfig.names = {
     {
+        name = '紫蓝伶',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '猎仁九命',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
         name = '冰飞',
         salaries = {
             {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
                 note = '泰坦',
-                value = 650,
+                value = 400,
             },
             {
                 note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '喝诶黑嘚讴豆',
-        salaries = {
-            {
-                note = '基本工资(1/4)',
-                value = 625,
-            },
-            {
-                note = '基本工资(3/4)',
-                value = 1877,
-            },
-        },
-    },
-    {
-        name = '凍顶乌龙',
-        salaries = {
-            {
-                note = '基本工资(1/4)',
-                value = 625,
-            },
-            {
-                note = '基本工资(3/4)',
-                value = 1877,
-            },
-        },
-    },
-    {
-        name = 'Sokodayo',
-        salaries = {
-            {
-                note = '基本工资(1/4)',
-                value = 625,
-            },
-            {
-                note = '基本工资(3/4)',
-                value = 1877,
-            },
-        },
-    },
-    {
-        name = '缘聚缘散',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '糖三勺',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '周老师',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '弄夜',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '刺客的信条',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '流风吹雪',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '忙着可爱',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '撸个串串',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '雪舞幽兰',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '暗夜猎奇',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '最酷',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
-            },
-        },
-    },
-    {
-        name = '奈何桥上',
-        salaries = {
-            {
-                note = '基本工资(4/4)',
-                value = 2503,
+                value = 2042,
             },
         },
     },
@@ -173,26 +56,167 @@ emailConfig.names = {
         name = '佘大宝',
         salaries = {
             {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
                 note = '基本工资(4/4)',
-                value = 2503,
+                value = 2042,
             },
         },
     },
     {
-        name = '白垩圣骑',
+        name = '抗霸子',
         salaries = {
             {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
                 note = '基本工资(4/4)',
-                value = 2503,
+                value = 2042,
             },
         },
     },
     {
-        name = 'Deathcomes',
+        name = 'Pluck',
         salaries = {
             {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
                 note = '基本工资(4/4)',
-                value = 2503,
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '奈何桥上',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+            {
+                note = '孢子男死掉，且暗抗只吃一个',
+                value = -200,
+            },
+        },
+    },
+    {
+        name = '柬埔寨小公主',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '黎明挽歌',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '忙着可爱',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '撸个串串',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '朝天子',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '刺客的信条',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '暗夜猎奇',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+            {
+                note = '孢子男死掉，且暗抗只吃一个',
+                value = -200,
+            },
+            {
+                note = '冰龙吃药提醒',
+                value = -50,
+            },
+        },
+    },
+    {
+        name = 'Ayanamirei',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
             },
         },
     },
@@ -200,8 +224,64 @@ emailConfig.names = {
         name = '飛騰',
         salaries = {
             {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
                 note = '基本工资(4/4)',
-                value = 2503,
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '雨玲珑',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '丁勾的宝箱号',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '周老师',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
+            },
+        },
+    },
+    {
+        name = '雪舞幽兰',
+        salaries = {
+            {
+                note = '早到补贴',
+                value = 100,
+            },
+            {
+                note = '基本工资(4/4)',
+                value = 2042,
             },
         },
     },

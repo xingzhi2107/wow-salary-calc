@@ -3,14 +3,53 @@
   "wclId": "JD7Rfa1Yxy6tHgGr",
   "subject": "灰烬史者NAXX",
   "body": "",
-  "totalIncome": 100800,
-  "assemblePlayersStr": "",
+  "equipmentIncome": 100800,
+  "assemblePlayersStr": "紫蓝伶,光头佬腊肉,冰飞,佘大宝,抗霸子,Pluck,奈何桥上,柬埔寨小公主,黎明挽歌,忙着可爱,撸个串串,朝天子,刺客的信条,暗夜猎奇,Ayanamirei,飛騰,雨玲珑,黑不是我的错,周老师,雪舞幽兰,盾牌砸死你,燕归迷你菇,Deathcomes,弄夜,白垩圣骑,黑暗治疗师,蓝色的梦,Blackbeans,燕子的夏天,阿尔法懒,沧海魔神,初见未央,希水,百威治百病,流风吹雪",
+  "fines": [
+    {
+      "note": "孢子男死掉，且暗抗只吃一个" ,
+      "value": 200,
+      "members": ["蓝色的梦", "暗夜猎奇", "糖三勺", "奈何桥上"]
+    },
+    {
+      "note": "孢子男死掉" ,
+      "value": 100,
+      "members": ["弄夜", "指上丶弹冰", "盾牌砸死你"]
+    },
+    {
+      "note": "冰龙吃药提醒" ,
+      "value": 50,
+      "members": ["暗夜猎奇"]
+    }
+  ],
   "subsidies": [
     {
+      "note": "预留资金（10%）",
+      "value": 11000,
+      "members": ["丁勾的附魔号"]
+    },
+    {
       "note": "泰坦",
-      "value": 650,
-      "type": "all-the-same",
+      "value": 400,
       "members": ["冰飞"]
+    },
+    {
+      "note": "化石泰坦",
+      "value": 5200,
+      "members": ["希水"]
+    },
+    {
+      "note": "cd费",
+      "value": 150,
+      "members": ["Sokodayo"]
+    }
+  ],
+  "translations": [
+    {
+      "from": "初见未央",
+      "to": "风火雷星",
+      "value": 300,
+      "note": "冰龙顶替"
     }
   ]
 }
