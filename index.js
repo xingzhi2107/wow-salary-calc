@@ -43,7 +43,12 @@ class WCL {
     this.fights = data.fights;
     this.id2fight = _.keyBy(this.fights, x => x.id)
     this.bossFights = this.fights.filter(x => x.boss);
+    this.fights.forEach(x => {
+      x.kill = true;
+    })
     this.killedBossFights = this.bossFights.filter(x => x.kill);
+    this.killedBossFights = this.bossFights;
+    debugger;
 
     const friendlies = data.friendlies.filter(x => x.type !== 'NPC');
     this.friendlies = friendlies.map(player => {
