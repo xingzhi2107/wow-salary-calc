@@ -1,0 +1,45 @@
+{
+  "date": "2021-01-26",
+  "wclId": "F6zjRYqryDJNaWBf",
+  "subject": "1/10碎片掉率的NAXX",
+  "body": "",
+  "equipmentIncome": 74200,
+  "assemblePlayersStr": "紫蓝伶,冰飞,凍顶乌龙,白垩圣骑,飛騰,毛毛猪,Sokodayo,佘大宝,雨玲珑,撸个串串,黎明挽歌,弄夜,Deathcomes,蓝色的梦,脆皮啼,柬埔寨小公主,百威治百病,奈何桥上,抗霸子,缘聚缘散,风火雷星,朝天子,星夜乱舞,忙着可爱,暗夜猎奇,盾牌砸死你,黑不是我的错,光头佬腊肉,刺客的信条,丶石老师丶,希水,星梦恋儿,糖三勺,沧海魔神,单刷三中路,灬潇湘雨灬,流风吹雪,阿尔法懒,Blackbeans",
+  "fines": [
+    {
+      "note": "电男跳台子",
+      "value": 50,
+      "members": ["Blackbeans"]
+    },
+    {
+      "note": "DK1瓦解",
+      "value": 50,
+      "members": ["希水", "糖三勺", "沧海魔神"]
+    }
+  ],
+  "subsidies": [
+    {
+      "note": "预留资金（10%）",
+      "value": 7400,
+      "members": ["丁勾的附魔号"]
+    },
+    {
+      "note": "化石",
+      "value": 1200,
+      "members": ["希水"]
+    },
+    {
+      "note": "泰坦",
+      "value": 400,
+      "members": ["冰飞", "抗霸子"]
+    }
+  ],
+  "translations": [
+    {
+      "note": "蓝大人的补贴",
+      "value": 500,
+      "from": "紫蓝伶",
+      "to": "抗霸子"
+    }
+  ]
+}
