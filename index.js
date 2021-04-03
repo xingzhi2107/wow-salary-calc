@@ -3,13 +3,10 @@ const utils = require('@mistkafka/zhenguo-js-lib');
 const _ = require('lodash');
 const memberAlias = require('./member-alias');
 const CliTable = require('cli-table3');
-const NodeStorage = require('node-persist');
 const js2Lua = require('./lua-utils');
 const { program } = require('commander');
+const {storage, storageInitP} = require('./storage');
 
-const storage = NodeStorage.create({
-  dir: '/Users/zhenguo/.cache/wow-salary/'
-});
 
 program.version('1.0.0');
 program
@@ -31,7 +28,7 @@ class WCL {
 
   async loadSummaryData() {
     if (!this.wclId) throw Error('wcl id is miss');
-    await storage.init();
+    await storageInitP;
     let data = await storage.getItem(this.wclId);
     if (!data) {
       const res = await utils.jsonRequest(`https://cn.classic.warcraftlogs.com/reports/fights-and-participants/${this.wclId}/0`);
@@ -86,6 +83,7 @@ class SalaryCalculator {
     const {
       memberSalaries,
       countInfo,
+      fineSalaries,
     } = this.getSalaries();
 
     const countInfoTable = new CliTable({
@@ -126,6 +124,26 @@ class SalaryCalculator {
     })
     subsidyTable.push(...subsidies)
     console.log(subsidyTable.toString());
+
+    const fineTable = new CliTable({
+      head: ['罚款项', '罚款金额', '罚款人数', '罚款总额', '具体人员']
+    });
+    const fines = fineSalaries.map(subsidy => {
+      const itemCount = subsidy.members.length;
+      let membersStr = subsidy.members.join(', ');
+      if (membersStr.length > 50) {
+        membersStr = membersStr.substring(0, 50) + '...'
+      }
+      return [
+        subsidy.note,
+        subsidy.value,
+        itemCount,
+        itemCount * subsidy.value,
+        membersStr,
+      ]
+    })
+    fineTable.push(...fines)
+    console.log(fineTable.toString());
 
     const memberSalaryTable = new CliTable({
       head: ['序号', '角色', '总工资', '明细'],
@@ -218,7 +236,7 @@ emailConfig.names = ${js2Lua(items)}
 
   getSalaries() {
     const salaryInfo = this.getBasicSalaryInfo();
-    const fineSalary = this.config.fines.map(x => {
+    const fineSalaries = this.config.fines.map(x => {
       return {
         ...x,
         value: -x.value,
@@ -228,7 +246,7 @@ emailConfig.names = ${js2Lua(items)}
       this.getAssembleSubsidy(),
       ...this.config.subsidies,
       ...salaryInfo.basicSalaries,
-      ...fineSalary,
+      ...fineSalaries,
     ];
     const countInfo = {...salaryInfo};
     delete countInfo.basicSalaries;
@@ -269,14 +287,17 @@ emailConfig.names = ${js2Lua(items)}
       }
     }
 
+    const skipSendNames = (this.config.skipSend || []).map(x => memberAlias[x] || x);
+
     const memberSalaries = Object.entries(membersMapping).map(([member, memberSalaryItems]) => {
       return {
         name: member,
         salaries: memberSalaryItems,
       }
-    });
+    }).filter(x => !skipSendNames.includes(x.name));
 
     return {
+      fineSalaries,
       salaries,
       memberSalaries,
       countInfo,
@@ -322,7 +343,13 @@ emailConfig.names = ${js2Lua(items)}
     const totalSubsidy = this.calcTotalSubsidy();
     const totalBasicSalary = totalIncome - totalSubsidy;
 
-    const validPlayer = this.wcl.friendlies.filter(x => x.playerKilledBosses.length);
+    let validPlayer = this.wcl.friendlies.filter(x => x.playerKilledBosses.length).filter(x => !['作战小鸡', '见习死亡骑士'].includes(x.name))
+    const excludes = this.config.exclude || [];
+    const skipSends = this.config.skipSend || [];
+    validPlayer = validPlayer.filter(x => !excludes.includes(x.name));
+    validPlayer.forEach(x => {
+      x.skipSend = skipSends.includes(x.name);
+    })
     const totalKilledBoss  = this.wcl.killedBossFights.length;
     const totalPlayerKillTimes = _.sum(validPlayer.map(x => x.playerKilledBosses.length));
     const perPlayerKillTimesSalary = totalBasicSalary / totalPlayerKillTimes;

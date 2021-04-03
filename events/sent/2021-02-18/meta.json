@@ -1,0 +1,34 @@
+{
+  "date": "2020-02-18",
+  "wclId": "p9Tdw3hBAPDtNVgJ",
+  "subject": "2020-02-18",
+  "body": "",
+  "equipmentIncome": 42000,
+  "assemblePlayersStr": "",
+  "fines": [
+    {
+      "note": "电男炸人",
+      "value": 100,
+      "members": ["星夜乱舞"]
+    },
+    {
+      "note": "孢子死",
+      "value": 100,
+      "members": ["星梦恋儿", "肯帕蕾拉"]
+    },
+    {
+      "note": "孢子死(没补暗抗药水)",
+      "value": 200,
+      "members": ["小加里"]
+    }
+  ],
+  "subsidies": [
+    {
+      "note": "泰坦",
+      "value": 350,
+      "members": ["冰飞", "抗霸子"]
+    }
+  ],
+  "translations": [
+  ]
+}

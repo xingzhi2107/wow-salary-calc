@@ -1,0 +1,29 @@
+{
+  "date": "2021-03-16",
+  "wclId": "8LHM2GxzjYrfC3TA",
+  "subject": "判若两然的周二NAXX",
+  "body": "",
+  "equipmentIncome": 59700,
+  "assemblePlayersStr": ",紫蓝伶,冰飞,佘大宝,凍顶乌龙,周老师,白垩圣骑,奈何桥上,飛騰,光头佬腊肉,盾牌砸死你,弄夜,阿尔法懒,星夜乱舞,星梦恋儿,忙着可爱,柬埔寨小公主,靓亮,黑不是我的错,风火雷星,朝天子,电玩洋洋,Pluck,单刷三中路,蓝色的梦,百威治百病,暗夜猎奇,毛毛猪,撸个串串,流风吹雪,燕子的夏天,小加里,糖三勺,抗霸子,Blackbeans,今晚打老鼠丶,灵灵舞",
+  "fines": [
+    {
+      "note": "电男每跳过去",
+      "value": 50,
+      "members": ["小加里"]
+    },
+    {
+      "note": "电男炸人（新人第一次不罚款）",
+      "value": 0,
+      "members": ["Starsorrow"]
+    },
+    {
+      "note": "孢子男 死",
+      "value": 100,
+      "members": ["Blackbeans", "蓝色的梦", "电玩洋洋", "靓亮", "人参乌龙"]
+    }
+  ],
+  "subsidies": [
+  ],
+  "translations": [
+  ]
+}

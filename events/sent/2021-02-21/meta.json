@@ -1,0 +1,35 @@
+{
+  "date": "2020-02-21",
+  "wclId": "YwM6QPqJZpgDHVak",
+  "subject": "毁灭黎明的naxx",
+  "body": "",
+  "equipmentIncome": 218000,
+  "assemblePlayersStr": "",
+  "fines": [
+    {
+      "note": "暗影裂隙死",
+      "value": 100,
+      "members": ["星夜乱舞"]
+    }
+  ],
+  "subsidies": [
+    {
+      "note": "泰坦",
+      "value": 350,
+      "members": ["冰飞", "星夜乱舞", "凍顶乌龙"]
+    },
+    {
+      "note": "合剂(11精炼、9超能)",
+      "value": 7000,
+      "members": ["希水"]
+    }
+  ],
+  "translations": [
+    {
+      "note": "私人替补补贴",
+      "value": 1000,
+      "from": "紫蓝伶",
+      "to": "暗夜沧海"
+    }
+  ]
+}

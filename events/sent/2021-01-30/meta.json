@@ -1,0 +1,22 @@
+{
+  "date": "2021-01-30",
+  "wclId": "DvpKd6nGfJMC2rNV",
+  "subject": "橙杖TAQ",
+  "body": "",
+  "equipmentIncome": 16500,
+  "assemblePlayersStr": "",
+  "fines": [
+  ],
+  "subsidies": [
+  ],
+  "translations": [
+    {
+      "from": "抗霸子",
+      "to": "丁勾的宝箱号",
+      "note": "买装备没给G",
+      "value": 200
+    }
+  ],
+  "exclude": [],
+  "skipSend": ["古月修真", "国窖一五七三", "靑豆", "朵朵喵", "七月晴子", "灬倚碧鸳灬", "靈魂通假", "伏苓", "璁珑", "安娜菲菲"]
+}

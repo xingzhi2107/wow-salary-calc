@@ -1,0 +1,44 @@
+{
+  "date": "2021-01-29",
+  "wclId": "MTvJkQPfBjYwKbNL",
+  "subject": "老克",
+  "body": "",
+  "equipmentIncome": 111700,
+  "assemblePlayersStr": ",紫蓝伶,冰飞,盾牌砸死你,白垩圣骑,黑不是我的错,Ayanamirei,雪舞幽兰,佘大宝,弄夜,猎仁九命,雨玲珑,Pluck,朝天子,忙着可爱,Sokodayo,黎明挽歌,周老师,燕归迷你菇,凍顶乌龙,最酷,星梦恋儿,秋云思月,蓝色的梦,初见未央,撸个串串,Blackbeans,暗夜猎奇,柬埔寨小公主,Tranzan,奈何桥上,哪个谁,黑暗治疗师,抓不住,飛騰,糖三勺,暗夜沧海",
+  "fines": [
+    {
+      "note": "喝错超能",
+      "value": 350,
+      "members": ["黑不是我的错"]
+    },
+    {
+      "note": "昨天孢子死",
+      "value": 100,
+      "members": ["凍顶乌龙", "弄夜", "Pluck"]
+    },
+    {
+      "note": "昨天孢子死，且只吃了一个暗抗",
+      "value": 200,
+      "members": ["暗夜猎奇"]
+    }
+  ],
+  "subsidies": [
+    {
+      "note": "合剂 * 26",
+      "value": 9100,
+      "members": ["希水"]
+    },
+    {
+      "note": "精炼超能自费",
+      "value": 350,
+      "members": ["蓝色的梦", "紫蓝伶", "白垩圣骑", "希水"]
+    },
+    {
+      "note": "CD费",
+      "value": 150,
+      "members": ["Blackbeans", "凍顶乌龙", "胖胖的包"]
+    }
+  ],
+  "translations": [
+  ]
+}

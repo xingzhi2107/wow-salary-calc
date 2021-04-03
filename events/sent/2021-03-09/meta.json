@@ -1,0 +1,35 @@
+{
+  "date": "2021-03-09",
+  "wclId": "QmFRAfhVCJnrwG4N",
+  "subject": "一言难尽的一晚～",
+  "body": "",
+  "equipmentIncome": 37300,
+  "assemblePlayersStr": "",
+  "fines": [
+    {
+      "note": "构造2 OT灭团",
+      "value": 200,
+      "members": ["百威治百病"]
+    },
+    {
+      "note": "DK1 死瓦解",
+      "value": 100,
+      "members": ["Scorpio", "糖三勺", "小加里", "希水"]
+    },
+    {
+      "note": "瘟疫三 4:14之前死亡",
+      "value": 100,
+      "members": ["燕子的夏天", "蓝色的梦", "奈何桥上", "靓亮"]
+    }
+  ],
+  "subsidies": [
+  ],
+  "translations": [
+    {
+      "note": "买装备欠款",
+      "value": 900,
+      "from": "国窖一五七三",
+      "to": "黑不是我的错"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "date": "2021-03-11",
+  "wclId": "9gXmY6FCTRNayG1q",
+  "subject": "拍卖，赔了4k + 一个护腕的NAXX",
+  "body": "",
+  "equipmentIncome": 169500,
+  "assemblePlayersStr": "",
+  "fines": [
+    {
+      "note": "电男炸人（灭团）",
+      "value": 200,
+      "members": ["冰飞", "盾牌砸死你", "Pluck", "胖胖的包", "兜兜里木有糖"]
+    },
+    {
+      "note": "电男炸人",
+      "value": 100,
+      "members": ["七浔现月", "弄夜", "凍顶乌龙"]
+    },
+    {
+      "note": "电男没跳过去",
+      "value": 50,
+      "members": ["国窖一五七三"]
+    },
+    {
+      "note": "死裂隙",
+      "value": 100,
+      "members": ["弄夜"]
+    }
+  ],
+  "subsidies": [
+    {
+      "note": "替补",
+      "value": 500,
+      "members": ["今晚打老鼠丶", "今晚打老鼠丶"]
+    },
+    {
+      "note": "CD费",
+      "value": 150,
+      "members": ["凍顶乌龙", "佘大宝"]
+    }
+  ],
+  "translations": [
+  ]
+}
