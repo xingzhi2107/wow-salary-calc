@@ -3,9 +3,10 @@ const utils = require('@mistkafka/zhenguo-js-lib');
 const _ = require('lodash');
 const memberAlias = require('./member-alias');
 const CliTable = require('cli-table3');
-const js2Lua = require('./lua-utils');
 const { program } = require('commander');
 const {storage, storageInitP} = require('./storage');
+const moment = require('moment');
+const crypto = require('crypto');
 
 
 program.version('1.0.0');
@@ -206,32 +207,71 @@ class SalaryCalculator {
     }
   }
 
-  saveMemberSalariesToFiles(batchSize=20) {
+  saveMemberSalariesToFile() {
     const {
       memberSalaries,
     } = this.getSalaries();
     const totalSendSalary = this.sumMemberSalaries(memberSalaries);
-    const batches = _.chunk(memberSalaries, batchSize);
     console.log('总邮寄人数：' + memberSalaries.length);
     console.log('总邮寄工资：' + totalSendSalary);
-    console.log('每批次邮寄数目：' + batchSize);
-    console.log('批次数：' + batches.length);
 
-    batches.forEach((items, index) => {
-      const fileName = `email_salary_item_${index + 1}.lua`
-      const totalSalary = this.sumMemberSalaries(items);
-      let content = `-- 批次：${index + 1}. \n-- 邮寄数目：${items.length}.\n-- 邮寄总额：${totalSalary}. \n\n\n\n`;
-      const subject = this.config.date + ', ' + this.config.subject;
-      let luaContent = `
-emailConfig = {}
-emailConfig.subject = "${subject}"
-emailConfig.body = "${this.config.body}"
-emailConfig.names = ${js2Lua(items)}
-      `
-      content = content + luaContent;
 
-      utils.writeContentToFile(`./events/${this.date}/${fileName}`, content);
+    const eventId = this.wcl.wclId;
+    const eventTime = moment(this.config.date).unix();
+    const salaries = memberSalaries.map(x => {
+      // 使用角色+wclId的md5 hash来作为工资的uuid，
+      // 这样多次执行uuid保持不变
+      const playerEventKey = x.name + '-' + x.server + '-' + eventId;
+      const hash = crypto.createHash('md5').update(playerEventKey).digest('hex');
+      const detailItems = x.salaries.map(y => {
+        return {
+          item: y.note,
+          value: y.value,
+        }
+      });
+      const total = _.sum(detailItems.map(y => y.value))
+      return {
+        uuid: hash,
+        eventId,
+        name: x.name,
+        server: x.server,
+        total,
+        detailItems,
+        optLogs: [],
+        timeRemoved: 0,
+        timeSent: 0,
+      }
     });
+    const eventInfo = {
+      id: eventId,
+      title: this.config.subject,
+      eventTime,
+      emailBody: this.config.body,
+      isCompleted: false,
+      timeRemoved: 0,
+      salaries,
+    }
+
+    const jsonContent = JSON.stringify(eventInfo);
+    const base64Content = Buffer.from(jsonContent).toString('base64');
+    const lines = _.chunk(base64Content, 80).map(chars => chars.join(''))
+    const commentLines = [
+      '-- WCL Id： ' + eventInfo.id,
+      '-- 活动标题：' + eventInfo.title,
+      '-- 活动日期：' + this.config.date,
+      '-- 总邮寄人数：' + eventInfo.salaries.length,
+      '-- 总邮寄金额：' + totalSendSalary
+    ];
+    const humanityBase64Content = [
+      ...commentLines,
+      ...lines,
+      ...commentLines,
+    ].join('\n');
+
+
+
+    utils.writeContentToFile(`./events/${this.date}/data.txt`, humanityBase64Content);
+    utils.writeContentToFile(`./events/${this.date}/debug_data.json`, JSON.stringify(eventInfo, null, 4));
   }
 
   sumMemberSalaries(items)  {
@@ -406,7 +446,7 @@ async function run() {
   const salaryCalculator = new SalaryCalculator(program.date);
   await salaryCalculator.loadWclP;
   salaryCalculator.display();
-  salaryCalculator.saveMemberSalariesToFiles();
+  salaryCalculator.saveMemberSalariesToFile();
 }
 
 run();
